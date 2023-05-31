@@ -1,9 +1,13 @@
 pipeline {
     agent any
+    tools {
+        maven "default"
+        jdk "jdk11"
+    }
     stages {
         stage('build') {
             steps {
-                sh 'mvn package'
+                sh 'mvn package -DargLine="--add-opens java.base/java.util=ALL-UNNAMED"'
             }
         }
         stage('test') {
@@ -18,7 +22,7 @@ pipeline {
                 sh "sudo docker rmi amitojha93/tomcat-dev:v1 | true"
                 sh "sudo docker container rm tomcat-dev -f | true"
                 sh "sudo docker build . -t amitojha93/tomcat-dev:v1"
-                sh "sudo docker run --name tomcat-dev -d -p 8081:8080 amitojha93/tomcat-dev:v1"
+                sh "sudo docker run --name tomcat-dev -d -p 8084:8080 amitojha93/tomcat-dev:v1"
             }
         }
        
