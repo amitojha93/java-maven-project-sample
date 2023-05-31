@@ -1,57 +1,47 @@
 pipeline {
-   agent {
-       label 'Docker'
-   }
-   tools {
+    agent {
+        label 'Docker'
+    }
+    tools {
         maven "default"
         jdk "jdk11"
-            }
+    }
     triggers {
-      pollSCM 'H/3 * * * * '
+        pollSCM 'H/3 * * * * '
     }
     stages {
         stage('Clone') {
             steps {
                 git branch: 'master', url: 'https://github.com/amitojha93/java-maven-project-sample.git'
-                git branch: 'Test',   url: 'https://github.com/amitojha93/java-maven-project-sample.git'
             }
-        }
-        stage('Build') {
+                    }
+        stage('build') {
             steps {
                 sh 'mvn package'
             }
         }
-        stage('Testing') {
+        stage('test') {
             steps {
-                sh 'echo "Application Testing"'
+                sh 'echo "Testing Application"'
                 sh 'mvn test'
                 junit '**/surefire-reports/TEST-*.xml'
             }
         }
-        stage('Deploying')
-        {
-            when{
-		 branch 'Test'
-		}
+        stage('Deploy') {
             steps {
-                sh "sudo docker rmi amitojha93/tomcat-dev:v1 | true" 
+                sh "sudo docker rmi amitojha93/tomcat-dev:v1 | true"
                 sh "sudo docker container rm tomcat-dev -f | true"
                 sh "sudo docker build . -t amitojha93/tomcat-dev:v1"
-                sh "sudo docker run -d -p 8081:8080 --name tomcat-dev amitojha93/tomcat-dev:v1"
+                sh "sudo docker run --name tomcat-dev -d -p 8081:8080 amitojha93/tomcat-dev:v1"
             }
         }
-	 stage('prod')
-        {
-            when {
-		 branch 'master'
-		}
+        stage('Docker push') {
             steps {
-                sh "sudo docker rmi amitojha93/tomcat-prod:v1 | true" 
-                sh "sudo docker container rm tomcat-prod -f | true"
-                sh "sudo docker build . -t amitojha93/tomcat-prod:v1"
-                sh "sudo docker run -d -p 8082:8080 --name tomcat-prod amitojha93/tomcat-prod:v1"
+                withCredentials([usernamePassword(credentialsId: 'hub-cred', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+        	sh "sudo docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+            sh 'sudo docker push amitojha93/tomcat-dev:v1'
             }
-             }
         }
-}    
-    
+    }
+}
+}
