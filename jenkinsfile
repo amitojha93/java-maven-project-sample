@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh 'mvn package'
+                sh 'mvn package -DargLine="--add-opens java.base/java.util=ALL-UNNAMED"'
             }
         }
         stage('test') {
