@@ -1,20 +1,6 @@
 pipeline {
-    agent {
-        label 'Docker'
-    }
-    tools {
-        maven "default"
-        jdk "jdk11"
-    }
-    triggers {
-        pollSCM 'H/3 * * * * '
-    }
+    agent any
     stages {
-        stage('Clone') {
-            steps {
-                git branch: 'master', url: 'https://github.com/amitojha93/java-maven-project-sample.git'
-            }
-                    }
         stage('build') {
             steps {
                 sh 'mvn package'
@@ -35,13 +21,6 @@ pipeline {
                 sh "sudo docker run --name tomcat-dev -d -p 8081:8080 amitojha93/tomcat-dev:v1"
             }
         }
-        stage('Docker push') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'hub-cred', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-        	sh "sudo docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-            sh 'sudo docker push amitojha93/tomcat-dev:v1'
-            }
-        }
+       
     }
-}
 }
