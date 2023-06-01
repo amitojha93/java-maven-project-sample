@@ -22,9 +22,6 @@ pipeline {
         }
         stage('Deploying')
         {
-            when{
-		 branch 'test'
-		}
             steps {
                 sh "sudo docker rmi amitojha93/tomcat-dev:v1 | true" 
                 sh "sudo docker container rm tomcat-dev -f | true"
@@ -34,9 +31,6 @@ pipeline {
         }
 	 stage('prod')
         {
-            when {
-		 branch 'B1'
-		}
             steps {
                 sh "sudo docker rmi amitojha93/tomcat-prod:v1 | true" 
                 sh "sudo docker container rm tomcat-prod -f | true"
