@@ -22,7 +22,7 @@ pipeline {
                 sh "sudo docker rmi amitojha93/tomcat:v1 | true"
                 sh "sudo docker container rm tomcat-dev -f | true"
                 sh "sudo docker build . -t amitojha93/tomcat:v1"
-                sh "sudo docker run --name tomcat-dev -d -p 8083:8080 amitojha93/tomcat-dev:v1"
+                sh "sudo docker run --name tomcat-dev -d -p 8083:8080 amitojha93/tomcat:v1"
             }
         }
        
