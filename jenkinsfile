@@ -52,7 +52,7 @@ parameters {
                 sh "sudo docker rmi amitojha93/tomcat-dev:v1 | true"
                 sh "sudo docker container rm tomcat-uat -f | true"
                 sh "sudo docker build . -t amitojha93/tomcat-dev:v1"
-                sh "sudo docker run --name tomcat-uat -d -p 8082:8080 amitojha93/tomcat-dev:v1"
+                sh "sudo docker run --name tomcat-uat -d -p 8083:8080 amitojha93/tomcat-dev:v1"
             }
 	
         }
