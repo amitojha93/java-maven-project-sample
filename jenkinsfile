@@ -10,7 +10,7 @@ pipeline {
     	}
 
 parameters {
-    choice(name: 'ENV', choices: ['B1', 'prod'], description: 'Pick Environment')
+    choice(name: 'ENV', choices: ["B1", "prod"], description: 'Pick Environment')
   }
     stages {
         stage('Maven Package') {
@@ -30,8 +30,7 @@ parameters {
 	
         stage('Deploy to UAT') {
             when {   
-                 expression {
-          ENV == "B1"
+                 expression {ENV == "B1"
                  }
          }
             steps {
