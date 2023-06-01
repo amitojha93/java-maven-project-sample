@@ -8,10 +8,6 @@ pipeline {
 	        triggers {
       		pollSCM 'H/1 * * * * '
     	}
-
-parameters {
-    choice(name: 'ENV', choices: ['B1', 'prod'], description: 'Pick Environment')
-  }
     stages {
         stage('Maven Package') {
             steps {
