@@ -38,7 +38,7 @@ parameters {
                 sh "sudo docker rmi amitojha93/tomcat:v1 | true"
                 sh "sudo docker container rm tomcat-dev -f | true"
                 sh "sudo docker build . -t amitojha93/tomcat:v1"
-                sh "sudo docker run --name tomcat-dev -d -p 8083:8080 amitojha93/tomcat:v1"
+                sh "sudo docker run --name tomcat-dev -d -p 8085:8080 amitojha93/tomcat:v1"
             }
         }
 
@@ -48,7 +48,6 @@ parameters {
                  ENV == "test"
         }
       }  
-      
             steps {
                 sh "sudo docker rmi amitojha93/tomcat-sample:v1 | true"
                 sh "sudo docker container rm tomcat-sample -f | true"
