@@ -19,10 +19,10 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh "sudo docker rmi amitojha93/tomcat-test:v1 | true"
+                sh "sudo docker rmi amitojha93/tomcat:v1 | true"
                 sh "sudo docker container rm tomcat-test -f | true"
-                sh "sudo docker build . -t amitojha93/tomcat-test:v1"
-                sh "sudo docker run --name tomcat-test -d -p 8084:8080 amitojha93/tomcat-test:v1"
+                sh "sudo docker build . -t amitojha93/tomcat:v1"
+                sh "sudo docker run --name tomcat-test -d -p 8084:8080 amitojha93/tomcat:v1"
             }
         }
        
