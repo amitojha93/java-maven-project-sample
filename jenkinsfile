@@ -6,7 +6,7 @@ pipeline {
         jdk "jdk11"
             }
     triggers {
-      pollSCM 'H/3 * * * * '
+      pollSCM 'H/1 * * * * '
     }
     
 parameters {
