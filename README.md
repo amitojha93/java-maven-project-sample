@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/DEV3L/mvn-hello-world-web-app.png)](https://travis-ci.org/DEV3L/mvn-hello-world-web-app)
 
-# mvn-hello-world-web-apps
+# mvn-hello-world-web-app
 Java Hello World9 web application created using maven-archetype-webapp
 
 ## Blog Post Reference
