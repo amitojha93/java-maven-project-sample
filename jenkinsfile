@@ -1,16 +1,13 @@
 pipeline {
-  agent any
-   tools {
-        maven "default"
-        jdk "jdk11"
-            }
-    triggers {
-      pollSCM 'H/3 * * * * '
-    }
+
+    agent any
+
     stages {
-        stage('Build') {
+
+        stage('Maven Package') {
             steps {
-                sh 'mvn package'
+                sh 'mvn clean package'
+                
             }
         }
         stage('Testing') {
@@ -20,15 +17,36 @@ pipeline {
                 junit '**/surefire-reports/TEST-*.xml'
             }
         }
-        stage('Deploying')
-        {
+
+        stage('Deploy to Dev') {
+            when {
+                expression {
+                    BRANCH_NAME == "B1"
+                }
+            }
             steps {
-                sh "sudo docker rmi amitojha93/tomcat-dev:v1 | true" 
-                sh "sudo docker container rm tomcat-dev -f | true"
-                sh "sudo docker build . -t amitojha93/tomcat-dev:v1"
-                sh "sudo docker run -d -p 8084:8080 --name tomcat-dev amitojha93/tomcat-dev:v1"
+                build job: 'deploy', parameters: [string(name: 'ENV', value: 'B1')]
             }
         }
+
+        stage('Deploy to Prod') {
+            when {
+                expression {
+                    BRANCH_NAME == "test"
+                }
+            }
+            steps {
+                build job: 'deploy', parameters: [string(name: 'ENV', value: 'test')]
+            }
         }
-}    
-    
+
+    }
+
+    post {
+        always {
+            cleanWs()
+        }
+    }
+
+}
+
