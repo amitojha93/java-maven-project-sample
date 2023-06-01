@@ -35,10 +35,10 @@ parameters {
         } 
       }
             steps {
-                sh "sudo docker rmi amitojha93/tomcat-uat:v1 | true"
-                sh "sudo docker container rm tomcat-uat -f | true"
-                sh "sudo docker build . -t amitojha93/tomcat-uat:v1"
-                sh "sudo docker run --name tomcat-uat -d -p 8085:8080 amitojha93/tomcat-uat:v1"
+                sh "sudo docker rmi amitojha93/tomcat-uat1:v1 | true"
+                sh "sudo docker container rm tomcat-uat1 -f | true"
+                sh "sudo docker build . -t amitojha93/tomcat-uat1:v1"
+                sh "sudo docker run --name tomcat-uat1 -d -p 8087:8080 amitojha93/tomcat-uat1:v1"
             }
         }
 
@@ -49,10 +49,10 @@ parameters {
         }
       }  
             steps {
-                sh "sudo docker rmi amitojha93/tomcat-prod1:v1 | true"
-                sh "sudo docker container rm tomcat-prod1 -f | true"
-                sh "sudo docker build . -t amitojha93/tomcat-prod1:v1"
-                sh "sudo docker run --name tomcat-uat -d -p 8086:8080 amitojha93/tomcat-prod1:v1"
+                sh "sudo docker rmi amitojha93/tomcat-prod2:v1 | true"
+                sh "sudo docker container rm tomcat-prod2 -f | true"
+                sh "sudo docker build . -t amitojha93/tomcat-prod2:v1"
+                sh "sudo docker run --name tomcat-prod2 -d -p 8088:8080 amitojha93/tomcat-prod2:v1"
             }
 	
         }
