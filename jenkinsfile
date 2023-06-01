@@ -1,9 +1,7 @@
 pipeline {
 
   agent any
-  parameters {
-    choice(name: 'ENV', choices: ["B1", "prod"], description: 'Pick Environment')
-  }
+
   tools {
         maven "default"
         jdk "jdk11"
@@ -30,6 +28,9 @@ pipeline {
     
 	
         stage('Deploy to UAT') {
+	  parameters {
+    	choice(name: 'ENV', choices: ["B1"], description: 'Pick Environment')
+  	}
             when {   
                  expression {ENV == "B1"
                  }
@@ -43,6 +44,9 @@ pipeline {
         }
 
         stage('Deploy Prod') {
+	  parameters {
+   	 choice(name: 'ENV', choices: ["prod"], description: 'Pick Environment')
+ 	 }
             when {   
                     expression {
           		ENV == "prod"
