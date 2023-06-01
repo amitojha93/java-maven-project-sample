@@ -11,7 +11,11 @@
       <img src="http://www.learntek.org/wp-content/uploads/2017/08/jenkins_image.png" alt="Spidertocat"
            class="img-responsive center-block" style="width:250px"/>
       <h1 class="text-center">This is a Project on Maven</h1>
-      <h2 class="text-center">WELL DONE Hello, This page has been Updated 08 May 2023 3rd time</h2>
+<<<<<<< HEAD
+      <h2 class="text-center">WELL DONE, This page has been Updated 08 May 2023 3rd time</h2>
+=======
+      <h2 class="text-center">WELL Hello !, This page has been Updated Jan 2020 on Branch B1</h2>
+>>>>>>> DEV
   </div>
 </body>
 </html>
