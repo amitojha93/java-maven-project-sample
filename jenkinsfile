@@ -5,6 +5,10 @@ pipeline {
         maven "default"
         jdk "jdk11"
             }
+	        triggers {
+      		pollSCM 'H/1 * * * * '
+    	}
+
 parameters {
     choice(name: 'ENV', choices: ['B1', 'test'], description: 'Pick Environment')
   }
