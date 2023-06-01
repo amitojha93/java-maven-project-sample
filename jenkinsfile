@@ -26,18 +26,9 @@ pipeline {
                 sh "sudo docker rmi amitojha93/tomcat-dev:v1 | true" 
                 sh "sudo docker container rm tomcat-dev -f | true"
                 sh "sudo docker build . -t amitojha93/tomcat-dev:v1"
-                sh "sudo docker run -d -p 8081:8080 --name tomcat-dev amitojha93/tomcat-dev:v1"
+                sh "sudo docker run -d -p 8084:8080 --name tomcat-dev amitojha93/tomcat-dev:v1"
             }
         }
-	 stage('prod')
-        {
-            steps {
-                sh "sudo docker rmi amitojha93/tomcat-prod:v1 | true" 
-                sh "sudo docker container rm tomcat-prod -f | true"
-                sh "sudo docker build . -t amitojha93/tomcat-prod:v1"
-                sh "sudo docker run -d -p 8082:8080 --name tomcat-prod amitojha93/tomcat-prod:v1"
-            }
-             }
         }
 }    
     
