@@ -23,7 +23,7 @@ agent any
             }
         }
 
-        stage('Deploy to Dev') {
+        stage('Deploy') {
             when {
                 expression {
                     BRANCH_NAME == "B1"
