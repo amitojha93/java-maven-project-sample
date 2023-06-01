@@ -25,11 +25,9 @@ pipeline {
     
 	
         stage('Deploy to UAT') {
-      when {
-        expression {
-          ENV == "B1"
-        } 
-      }
+            when {   
+                 branch 'B1'     
+     		 }  
             steps {
                 sh "sudo docker rmi amitojha93/tomcat-uat2:v1 | true"
                 sh "sudo docker container rm tomcat-uat2 -f | true"
@@ -39,11 +37,9 @@ pipeline {
         }
 
         stage('Deploy Prod') {
-            when {
-                  expression {
-                 ENV == "prod"
-        }
-      }  
+            when {   
+                 branch 'prod'     
+     		 }  
             steps {
                 sh "sudo docker rmi amitojha93/tomcat-prod3:v1 | true"
                 sh "sudo docker container rm tomcat-prod3 -f | true"
