@@ -8,6 +8,10 @@ pipeline {
 	        triggers {
       		pollSCM 'H/1 * * * * '
     	}
+
+parameters {
+    choice(name: 'ENV', choices: ['B1', 'prod'], description: 'Pick Environment')
+  }
     stages {
         stage('Maven Package') {
             steps {
@@ -26,8 +30,10 @@ pipeline {
 	
         stage('Deploy to UAT') {
             when {   
-                 branch 'B1'     
-     		 }  
+                 expression {
+          ENV == "B1"
+                 }
+         }
             steps {
                 sh "sudo docker rmi amitojha93/tomcat-uat2:v1 | true"
                 sh "sudo docker container rm tomcat-uat2 -f | true"
@@ -38,7 +44,9 @@ pipeline {
 
         stage('Deploy Prod') {
             when {   
-                 branch 'prod'     
+                    expression {
+          		ENV == "prod"
+                 }     
      		 }  
             steps {
                 sh "sudo docker rmi amitojha93/tomcat-prod3:v1 | true"
