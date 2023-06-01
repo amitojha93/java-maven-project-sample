@@ -8,12 +8,6 @@ pipeline {
       pollSCM 'H/3 * * * * '
     }
     stages {
-        stage('Clone') {
-            steps {
-                git branch: 'master', url: 'https://github.com/amitojha93/java-maven-project-sample.git'
-                git branch: 'Test',   url: 'https://github.com/amitojha93/java-maven-project-sample.git'
-            }
-        }
         stage('Build') {
             steps {
                 sh 'mvn package'
@@ -29,7 +23,7 @@ pipeline {
         stage('Deploying')
         {
             when{
-		 branch 'Test'
+		 branch 'test'
 		}
             steps {
                 sh "sudo docker rmi amitojha93/tomcat-dev:v1 | true" 
@@ -41,7 +35,7 @@ pipeline {
 	 stage('prod')
         {
             when {
-		 branch 'master'
+		 branch 'B1'
 		}
             steps {
                 sh "sudo docker rmi amitojha93/tomcat-prod:v1 | true" 
