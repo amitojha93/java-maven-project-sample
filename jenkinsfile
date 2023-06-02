@@ -2,7 +2,7 @@ pipeline {
 
   agent any
 parameters {
-    choice(name: 'ENV', choices: ['B1', 'prod'], description: 'Pick Environment')
+    choice(name: 'ENV', choices: ['B1', 'prod', 'dev'], description: 'Pick Environment')
   }
   tools {
         maven "default"
@@ -53,6 +53,22 @@ parameters {
                 sh "sudo docker container rm tomcat-prod3 -f | true"
                 sh "sudo docker build . -t amitojha93/tomcat-prod3:v1"
                 sh "sudo docker run --name tomcat-prod3 -d -p 8122:8080 amitojha93/tomcat-prod3:v1"
+            }
+	
+        }
+	
+        stage('Deploy dev') {
+
+            when {   
+                    expression {
+          		ENV == "dev"
+                 }     
+     		 }  
+            steps {
+                sh "sudo docker rmi amitojha93/tomcat-dev3:v1 | true"
+                sh "sudo docker container rm tomcat-dev3 -f | true"
+                sh "sudo docker build . -t amitojha93/tomcat-dev3:v1"
+                sh "sudo docker run --name tomcat-dev3 -d -p 8123:8080 amitojha93/tomcat-dev3:v1"
             }
 	
         }
