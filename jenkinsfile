@@ -29,7 +29,7 @@ parameters {
 	stage("Deploy") {
             parallel  {
         stage('Deploy to UAT') {
-	 when {expression {  env.DEPLOY_TO == "B1" } }
+	 when {expression {  BRANCH_NAME == "B1" } }
 	 
             steps {
                 sh "sudo docker rmi amitojha93/tomcat-uat2:v1 | true"
@@ -39,7 +39,7 @@ parameters {
             }
         }
         stage('Deploy Prod') {
-	when {  expression {  env.DEPLOY_TO == "prod" } }   
+	when {  expression {  BRANCH_NAME == "prod" } }   
             steps {
                 sh "sudo docker rmi amitojha93/tomcat-prod3:v1 | true"
                 sh "sudo docker container rm tomcat-prod3 -f | true"
@@ -48,7 +48,7 @@ parameters {
             }	
         }
 	  stage('Deploy dev') {
-	  when {  expression { env.DEPLOY_TO == "dev"} }  
+	  when {  expression { BRANCH_NAME == "dev"} }  
             steps {
                 sh "sudo docker rmi amitojha93/tomcat-prod3:v1 | true"
                 sh "sudo docker container rm tomcat-prod3 -f | true"
