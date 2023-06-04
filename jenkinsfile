@@ -1,5 +1,4 @@
 pipeline {
-
   agent any
 parameters {
     choice(name: "DEPLOY_TO", choices: ['B1', 'prod', 'dev'], description: 'Pick Environment')
@@ -7,10 +6,10 @@ parameters {
   tools {
         maven "default"
         jdk "jdk11"
-            }
-	        triggers {
+        }
+           triggers {
       		pollSCM 'H/1 * * * * '
-    	}
+               	}
     stages {
         stage('Maven Package') {
             steps {
@@ -25,9 +24,6 @@ parameters {
                 junit '**/surefire-reports/TEST-*.xml'
             }
         }
-    
-	stage("Deploy") {
-            parallel  {
         stage('Deploy to UAT') {
 	 when {expression {  GIT_BRANCH == "origin/B1" } }
 	 
@@ -69,12 +65,4 @@ parameters {
         }
   }
 }
-}
-}
-  post {
-    always {
-      cleanWs()
-    }
-  }
-  
 }
