@@ -2,7 +2,7 @@ pipeline {
 
   agent any
 parameters {
-    choice(name: "DEPLOY_TO", choices: ['B1', 'prod', 'dev'], description: 'Pick Environment')
+    choice(name: "DEPLOY_TO", choices: ['dev', 'prod', 'B1'], description: 'Pick Environment')
   }
   tools {
         maven "default"
