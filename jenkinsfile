@@ -34,7 +34,7 @@ parameters {
             steps {
                 sh "sudo docker rmi amitojha93/tomcat-uat:v1 | true"
                 sh "sudo docker container rm tomcat-uat -f | true"
-                sh "sudo docker build . -t amitojha93/tomcat-uat2:v1"
+                sh "sudo docker build . -t amitojha93/tomcat-uat:v1"
                 sh "sudo docker run --name tomcat-uat -d -p 8081:8080 amitojha93/tomcat-uat:v1"
 		withCredentials([usernamePassword(credentialsId: 'hub-cred', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
         	sh "sudo docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
@@ -64,7 +64,7 @@ parameters {
                 sh "sudo docker run --name tomcat-dev -d -p 8083:8080 amitojha93/tomcat-dev:v1"
 		withCredentials([usernamePassword(credentialsId: 'hub-cred', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
         	sh "sudo docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-                sh 'sudo docker push amitojha93/tomcat-prod3:v1'
+                sh 'sudo docker push amitojha93/tomcat-dev:v1'
             }	
         }
   }
