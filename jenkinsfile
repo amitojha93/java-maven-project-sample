@@ -53,7 +53,7 @@ parameters {
                 sh "sudo docker rmi amitojha93/tomcat-prod3:v1 | true"
                 sh "sudo docker container rm tomcat-prod3 -f | true"
                 sh "sudo docker build . -t amitojha93/tomcat-prod3:v1"
-                sh "sudo docker run --name tomcat-prod3 -d -p 8122:8080 amitojha93/tomcat-prod3:v1"
+                sh "sudo docker run --name tomcat-prod3 -d -p 8132:8080 amitojha93/tomcat-prod3:v1"
             }	
         }
   }
