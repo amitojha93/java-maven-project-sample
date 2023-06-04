@@ -36,7 +36,7 @@ parameters {
                 sh "sudo docker container rm tomcat-uat2 -f | true"
                 sh "sudo docker build . -t amitojha93/tomcat-uat2:v1"
                 sh "sudo docker run --name tomcat-uat2 -d -p 8089:8080 amitojha93/tomcat-uat2:v1"
-		withCredentials([usernamePassword(credentialsId: 'docker-hub-cred', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+		withCredentials([usernamePassword(credentialsId: 'hub-cred', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
         	sh "sudo docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
                 sh 'sudo docker push amitojha93/tomcat-uat2:v1'
 }
@@ -49,7 +49,7 @@ parameters {
                 sh "sudo docker container rm tomcat-prod3 -f | true"
                 sh "sudo docker build . -t amitojha93/tomcat-prod3:v1"
                 sh "sudo docker run --name tomcat-prod3 -d -p 8122:8080 amitojha93/tomcat-prod3:v1"
-		withCredentials([usernamePassword(credentialsId: 'docker-hub-cred', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+		withCredentials([usernamePassword(credentialsId: 'hub-cred', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
         	sh "sudo docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
                 sh 'sudo docker push amitojha93/tomcat-prod3:v1'
             }	
@@ -62,7 +62,7 @@ parameters {
                 sh "sudo docker container rm tomcat-prod3 -f | true"
                 sh "sudo docker build . -t amitojha93/tomcat-prod3:v1"
                 sh "sudo docker run --name tomcat-prod3 -d -p 8132:8080 amitojha93/tomcat-prod3:v1"
-		withCredentials([usernamePassword(credentialsId: 'docker-hub-cred', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+		withCredentials([usernamePassword(credentialsId: 'hub-cred', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
         	sh "sudo docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
                 sh 'sudo docker push amitojha93/tomcat-prod3:v1'
             }	
