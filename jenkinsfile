@@ -39,7 +39,7 @@ parameters {
 		withCredentials([usernamePassword(credentialsId: 'docker-hub-cred', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
         	sh "sudo docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
                 sh 'sudo docker push amitojha93/tomcat-uat2:v1'
-
+}
             }
         }
         stage('Deploy Prod') {
@@ -54,6 +54,7 @@ parameters {
                 sh 'sudo docker push amitojha93/tomcat-prod3:v1'
             }	
         }
+	}
 	  stage('Deploy dev') {
 	  when {  expression { GIT_BRANCH == "origin/dev"} }  
             steps {
@@ -67,6 +68,7 @@ parameters {
             }	
         }
   }
+}
 }
 }
   post {
