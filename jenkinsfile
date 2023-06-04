@@ -15,7 +15,7 @@ parameters {
         stage('Maven Package') {
             steps {
                 sh 'mvn clean package'
-                
+                sh 'env'
             }
         }
         stage('Testing') {
